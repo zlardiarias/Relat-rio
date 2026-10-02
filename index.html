@@ -16,50 +16,55 @@
             justify-content: center;
             align-items: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #eef2f7; /* Fundo geral corporativo e suave */
+            background: #eef2f7;
             padding: 20px;
         }
 
         .form-container {
-            background: #f4f7fb; /* Fundo interno a combinar com o tema do sistema */
-            padding: 40px 35px;
-            border-radius: 10px;
-            max-width: 600px;
+            background: #ffffff;
+            border-radius: 12px;
+            max-width: 620px;
             width: 100%;
-            box-shadow: 0 8px 24px rgba(0, 31, 63, 0.12);
+            box-shadow: 0 10px 30px rgba(11, 37, 69, 0.15);
             border: 1px solid #d0dbe7;
-            border-top: 6px solid #0b2545; /* Azul institucional forte */
+            overflow: hidden; /* Garante que o cabeçalho sólido respeite as bordas arredondadas */
         }
 
-        .header-institutional {
+        /* Novo Cabeçalho com cara de Sistema Orgânico e Robusto */
+        .header-system {
+            background: linear-gradient(135deg, #0b2545 0%, #134074 100%);
+            padding: 30px 25px;
             text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #cbd5e1;
-            padding-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            border-bottom: 4px solid #8da9c4;
         }
 
-        .header-institutional img {
-            max-width: 240px;
+        .header-system img {
+            max-width: 220px;
             height: auto;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 12px;
+            border-radius: 6px;
         }
 
         .form-title {
-            font-size: 17px;
-            color: #0b2545;
-            margin-bottom: 25px;
-            text-align: center;
-            font-weight: 700;
-            letter-spacing: 0.3px;
+            font-size: 16px;
+            color: #ffffff;
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
         }
 
+        /* Corpo do formulário onde ficam os campos */
+        .form-body {
+            padding: 35px 30px;
+            background: #fafbfc;
+        }
+
         .input-group {
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             text-align: left;
         }
 
@@ -67,18 +72,18 @@
             display: block;
             margin-bottom: 6px;
             font-size: 13px;
-            color: #134074; /* Tom azulado coordenado para os rótulos */
+            color: #134074;
             font-weight: 700;
         }
 
         .input-group input, 
         .input-group textarea {
             width: 100%;
-            padding: 11px 14px;
-            border: 1.5px solid #9ba8b7;
+            padding: 12px 14px;
+            border: 1.5px solid #cbd5e1;
             border-radius: 6px;
             font-size: 14px;
-            background-color: #ffffff; /* APENAS AS CAIXAS DE SELEÇÃO/TEXTO BRANCAS */
+            background-color: #ffffff; /* Caixas de seleção/texto em destaque branco */
             color: #1d2d44;
             outline: none;
             transition: all 0.25s ease;
@@ -88,7 +93,7 @@
         .input-group textarea:focus {
             border-color: #0b2545;
             background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(11, 37, 69, 0.15);
+            box-shadow: 0 0 0 3px rgba(11, 37, 69, 0.12);
         }
 
         .input-group textarea {
@@ -99,14 +104,14 @@
         .btn-submit {
             width: 100%;
             padding: 13px;
-            background: #0b2545; /* Botão elegante no tom do sistema */
+            background: #0b2545;
             color: white;
             border: none;
             border-radius: 6px;
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 10px;
             transition: background 0.2s, transform 0.1s;
             box-shadow: 0 4px 10px rgba(11, 37, 69, 0.2);
         }
@@ -120,11 +125,11 @@
         }
 
         .footer {
-            margin-top: 30px;
+            margin-top: 25px;
             text-align: center;
             font-size: 11px;
-            color: #4a5568;
-            border-top: 1px solid #cbd5e1;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
             padding-top: 15px;
             font-weight: 500;
         }
@@ -133,50 +138,51 @@
 <body>
 
     <div class="form-container">
-        <div class="header-institutional">
-            <!-- Nota: Se o seu ficheiro no GitHub se chamar apenas logo.png, altere o src abaixo para "logo.png" -->
+        <!-- Cabeçalho Institucional Estilizado tipo Sistema -->
+        <div class="header-system">
             <img src="logo-mpma.png" alt="Logo do Ministério Público do Estado do Maranhão">
+            <div class="form-title">Relatório de Atividades Diárias do Setor</div>
         </div>
 
-        <div class="form-title">Relatório de Atividades Diárias do Setor</div>
+        <div class="form-body">
+            <form action="#" method="POST">
+                
+                <div class="input-group">
+                    <label for="nome">Nome do Servidor / Membro</label>
+                    <input type="text" id="nome" name="nome" placeholder="Nome completo" required>
+                </div>
 
-        <form action="#" method="POST">
-            
-            <div class="input-group">
-                <label for="nome">Nome do Servidor / Membro</label>
-                <input type="text" id="nome" name="nome" placeholder="Nome completo" required>
+                <div class="input-group">
+                    <label for="email">E-mail Institucional</label>
+                    <input type="email" id="email" name="email" placeholder="nome@mpma.mp.br" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="data">Data de Referência</label>
+                    <input type="date" id="data" name="data" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="entregas">Principais Entregas / Atividades Concluídas no Dia</label>
+                    <textarea id="entregas" name="entregas" placeholder="Descreva detalhadamente as entregas finalizadas..." required></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="demandas">Demandas em Andamento</label>
+                    <textarea id="demandas" name="demandas" placeholder="Informe o status das demandas correntes e prazos..."></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="observacao">Observações / Intempéries / Pendências</label>
+                    <textarea id="observacao" name="observacao" placeholder="Registros adicionais relevantes para o setor..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Relatório</button>
+            </form>
+
+            <div class="footer">
+                Procuradoria-Geral de Justiça do Estado do Maranhão &bull; Sistema de Gestão Setorial
             </div>
-
-            <div class="input-group">
-                <label for="email">E-mail Institucional</label>
-                <input type="email" id="email" name="email" placeholder="nome@mpma.mp.br" required>
-            </div>
-
-            <div class="input-group">
-                <label for="data">Data de Referência</label>
-                <input type="date" id="data" name="data" required>
-            </div>
-
-            <div class="input-group">
-                <label for="entregas">Principais Entregas / Atividades Concluídas no Dia</label>
-                <textarea id="entregas" name="entregas" placeholder="Descreva detalhadamente as entregas finalizadas..." required></textarea>
-            </div>
-
-            <div class="input-group">
-                <label for="demandas">Demandas em Andamento</label>
-                <textarea id="demandas" name="demandas" placeholder="Informe o status das demandas correntes e prazos..."></textarea>
-            </div>
-
-            <div class="input-group">
-                <label for="observacao">Observações / Intempéries / Pendências</label>
-                <textarea id="observacao" name="observacao" placeholder="Registros adicionais relevantes para o setor..."></textarea>
-            </div>
-
-            <button type="submit" class="btn-submit">Enviar Relatório</button>
-        </form>
-
-        <div class="footer">
-            Procuradoria-Geral de Justiça do Estado do Maranhão &bull; Sistema de Gestão Setorial
         </div>
     </div>
 
