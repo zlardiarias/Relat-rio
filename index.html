@@ -80,6 +80,19 @@
             padding: 40px;
         }
 
+        #success-alert {
+            display: none;
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(15, 81, 50, 0.05);
+        }
+
         .input-group {
             margin-bottom: 22px;
             text-align: left;
@@ -143,10 +156,6 @@
             transform: translateY(-1px);
         }
 
-        .btn-submit:active {
-            transform: translateY(0);
-        }
-
         .footer {
             margin-top: 30px;
             text-align: center;
@@ -169,10 +178,13 @@
         </div>
 
         <div class="form-body">
-            <!-- Usamos target="hidden_iframe" para o envio ocorrer de forma invisível sem sair da página -->
-            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){ alert('Relatório enviado com sucesso!'); window.location.reload(); }"></iframe>
+            <!-- Alerta de Sucesso -->
+            <div id="success-alert">Relatório enviado com sucesso! Os dados foram registados na folha de cálculo.</div>
 
-            <form id="report-form" action="https://script.google.com/macros/s/AKfycbwz9pwSCkNtOkNHblumgm61IQSMhDeE_XrV_VSKXWtRnmumsV5Ov1_Pf99pV6UorFe2/exec" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+            <!-- Iframe invisível para capturar a resposta sem erros de CORS -->
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="iniciarEnvioConcluido()"></iframe>
+
+            <form id="report-form" action="https://script.google.com/macros/s/AKfycbwz9pwSCkNtOkNHblumgm61IQSMhDeE_XrV_VSKXWtRnmumsV5Ov1_Pf99pV6UorFe2/exec" method="POST" target="hidden_iframe" onsubmit="prepararEnvio()">
                 
                 <div class="input-group">
                     <label for="nome">Nome do Servidor / Membro</label>
@@ -214,7 +226,32 @@
     </div>
 
     <script>
-        var submitted = false;
+        let submetido = false;
+
+        function prepararEnvio() {
+            submetido = true;
+            const btn = document.getElementById('btn-submit');
+            btn.disabled = true;
+            btn.textContent = 'A enviar...';
+        }
+
+        function iniciarEnvioConcluido() {
+            if (submetido) {
+                document.getElementById('success-alert').style.display = 'block';
+                document.getElementById('report-form').reset();
+                
+                const btn = document.getElementById('btn-submit');
+                btn.disabled = false;
+                btn.textContent = 'Enviar Relatório';
+                
+                submetido = false;
+
+                // Ocultar mensagem após 6 segundos
+                setTimeout(() => {
+                    document.getElementById('success-alert').style.display = 'none';
+                }, 6000);
+            }
+        }
     </script>
 </body>
 </html>
