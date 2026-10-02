@@ -31,7 +31,6 @@
             position: relative;
         }
 
-        /* Elemento decorativo superior */
         .form-card::before {
             content: '';
             position: absolute;
@@ -238,22 +237,26 @@
             submitButton.disabled = true;
             submitButton.textContent = 'A enviar...';
 
-            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-                .then(response => {
-                    successMessage.style.display = 'block';
-                    form.reset();
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Enviar Relatório';
-                    
-                    setTimeout(() => {
-                        successMessage.style.display = 'none';
-                    }, 5000);
-                })
-                .catch(error => {
-                    alert('Erro ao enviar o relatório. Verifique a sua ligação.');
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Enviar Relatório';
-                });
+            fetch(scriptURL, { 
+                method: 'POST', 
+                mode: 'no-cors', 
+                body: new FormData(form)
+            })
+            .then(() => {
+                successMessage.style.display = 'block';
+                form.reset();
+                submitButton.disabled = false;
+                submitButton.textContent = 'Enviar Relatório';
+                
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            })
+            .catch(error => {
+                alert('Erro ao enviar o relatório. Verifique a sua ligação.');
+                submitButton.disabled = false;
+                submitButton.textContent = 'Enviar Relatório';
+            });
         });
     </script>
 </body>
