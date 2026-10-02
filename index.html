@@ -1,234 +1,185 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Atividades Diárias - MPMA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-<title>Cadastro de Diaristas - Zlar</title>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+        }
 
-<style>
-* {
-  box-sizing: border-box;
-}
+        /* Container Principal com Estilo Institucional */
+        .form-container {
+            background: #ffffff;
+            padding: 35px 30px;
+            border-radius: 8px;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #003366; /* Azul Institucional */
+        }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
-  background: #ffffff; /* página branca */
-  padding: 20px;
-}
+        /* Cabeçalho Institucional */
+        .header-institutional {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
 
-/* Card do formulário */
-form {
-  background: #0b1d33;
-  padding: 2px 5px 5px; /* TOPO QUASE ZERO */
-  border-radius: 9px;
-  max-width: 420px;
-  width: 100%;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-}
-.logo-container {
-  display: flex;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-}
+        .header-institutional h1 {
+            font-size: 18px;
+            color: #cc0000; /* Vermelho institucional */
+            margin: 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-.logo-container img {
-  width: 240px;  /* logo maior */
-  height: auto;
-  margin: -15;
-  display: block;
-  .logo-container { line-height: 0; }
-}
-/* Títulos */
-h2 {
-  margin-top: -122px;
-  padding: 0;
-  text-align: center;
-  color: #ffffff;
-}
-p {
-  margin-top: 0;
-  margin-bottom: 12px;
-  text-align: center;
-  color: #cbd5e1;
-}
+        .header-institutional h2 {
+            font-size: 15px;
+            color: #003366; /* Azul institucional */
+            margin: 5px 0 0 0;
+            font-weight: 600;
+        }
 
-/* Inputs */
-input {
-  width: 100%;
-  padding: 14px;
-  margin-top: 10px;
-  font-size: 15px;
-  border-radius: 10px;
-  border: 1px solid #94a3b8;
-  background: #f1f5ff; /* azul claro */
-}
+        .form-title {
+            font-size: 16px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
 
-input:focus {
-  outline: none;
-  border-color: #d4a857;
-  background: #e8efff;
-}
+        .input-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
 
-/* Botão */
-button {
-  width: 100%;
-  padding: 15px;
-  margin-top: 18px;
-  font-size: 16px;
-  font-weight: bold;
-  background: #d4a857;
-  color: #0b1d33;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-}
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: #4a5568;
+            font-weight: 600;
+        }
 
-button:hover {
-  background: #c09847;
-}
+        .input-group input, 
+        .input-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #fdfdfd;
+            color: #2d3748;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
 
-/* Mensagem sucesso */
-.success {
-  display: none;
-  margin-top: 15px;
-  padding: 12px;
-  background: #e6f7ee;
-  color: #1e7a4b;
-  text-align: center;
-  border-radius: 10px;
-  font-weight: bold;
-}
+        .input-group input:focus, 
+        .input-group textarea:focus {
+            border-color: #003366;
+            box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+        }
 
-/* Rodapé */
-.footer {
-  text-align: center;
-  margin-top: 20px;
-  color: #cbd5e1;
-  font-size: 13px;
-}
-</style>
+        .input-group textarea {
+            resize: vertical;
+            height: 90px;
+        }
+
+        /* Botão de Envio */
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: #003366;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background: #002244;
+        }
+
+        /* Rodapé Institucional */
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 11px;
+            color: #718096;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+    </style>
 </head>
-
 <body>
 
-<form id="formulario">
+    <div class="form-container">
+        <!-- Cabeçalho com dados institucionais do MPMA -->
+        <div class="header-institutional">
+            <h1>Ministério Público</h1>
+            <h2>Do Estado do Maranhão</h2>
+        </div>
 
-  <div class="logo-container">
-    <img src="logo.png" alt="Logo Zlar">
-  </div>
+        <div class="form-title">Relatório de Atividades Diárias do Setor</div>
 
-  <h2>Cadastro de Diarista</h2>
-  <p>Preencha seus dados</p>
+        <form action="#" method="POST">
+            
+            <div class="input-group">
+                <label for="nome">Nome do Servidor / Membro</label>
+                <input type="text" id="nome" name="nome" placeholder="Nome completo" required>
+            </div>
 
-  <input id="nome" placeholder="Nome completo" required>
-  <input id="cpf" placeholder="CPF (somente números)" required>
-  <input id="telefone" placeholder="Telefone / WhatsApp" required>
-  <input id="email" placeholder="E-mail">
+            <div class="input-group">
+                <label for="email">E-mail Institucional</label>
+                <input type="email" id="email" name="email" placeholder="nome@mpma.mp.br" required>
+            </div>
 
-<input id="cep" placeholder="CEP" required>
-<input id="rua" placeholder="Rua" readonly>
-<input id="numero" placeholder="Nº" required>
-<input id="bairro" placeholder="Bairro" readonly>
-<input id="cidade" placeholder="Cidade" readonly>
-<input id="estado" placeholder="Estado" readonly>
+            <div class="input-group">
+                <label for="data">Data de Referência</label>
+                <input type="date" id="data" name="data" required>
+            </div>
 
-  <button type="submit">Enviar cadastro</button>
+            <div class="input-group">
+                <label for="entregas">Principais Entregas / Atividades Concluídas no Dia</label>
+                <textarea id="entregas" name="entregas" placeholder="Descreva detalhadamente as entregas finalizadas..." required></textarea>
+            </div>
 
-  <div class="success" id="successMsg">
-    Cadastro enviado com sucesso 💛
-  </div>
+            <div class="input-group">
+                <label for="demandas">Demandas em Andamento</label>
+                <textarea id="demandas" name="demandas" placeholder="Informe o status das demandas correntes e prazos..."></textarea>
+            </div>
 
-  <div class="footer">
-    Zlar – Cuidando do Seu Lar
-  </div>
+            <div class="input-group">
+                <label for="observacao">Observações / Intempéries / Pendências</label>
+                <textarea id="observacao" name="observacao" placeholder="Registros adicionais relevantes para o setor..."></textarea>
+            </div>
 
-</form>
+            <button type="submit" class="btn-submit">Enviar Relatório</button>
+        </form>
 
-<script>
-const cep = document.getElementById("cep");
-const rua = document.getElementById("rua");
-const numero = document.getElementById("numero");  
-const bairro = document.getElementById("bairro");
-const cidade = document.getElementById("cidade");
-const estado = document.getElementById("estado");
-const cpf = document.getElementById("cpf");
-const form = document.getElementById("formulario");
-const successMsg = document.getElementById("successMsg");
-
-cep.addEventListener("blur", () => {
-  const v = cep.value.replace(/\D/g, "");
-  if (v.length !== 8) return;
-
-  fetch("https://viacep.com.br/ws/" + v + "/json/")
-    .then(r => r.json())
-    .then(d => {
-      if (d.erro) return;
-      rua.value = d.logradouro;
-      bairro.value = d.bairro;
-      cidade.value = d.localidade;
-      estado.value = d.uf;
-    });
-});
-
-function cpfValido(cpf) {
-  cpf = cpf.replace(/\D/g, "");
-  if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
-
-  let soma = 0;
-  for (let i = 0; i < 9; i++) soma += cpf[i] * (10 - i);
-  let resto = (soma * 10) % 11;
-  if (resto === 10) resto = 0;
-  if (resto != cpf[9]) return false;
-
-  soma = 0;
-  for (let i = 0; i < 10; i++) soma += cpf[i] * (11 - i);
-  resto = (soma * 10) % 11;
-
-  return resto == cpf[10];
-}
-
-form.addEventListener("submit", e => {
-  e.preventDefault();
-
-  if (!cpfValido(cpf.value)) {
-    alert("CPF inválido");
-    return;
-  }
-
-  const dados = {
-    nome: document.getElementById("nome").value,
-    cpf: document.getElementById("cpf").value,
-    telefone: document.getElementById("telefone").value,
-    email: document.getElementById("email").value,
-    cep: document.getElementById("cep").value,
-    rua: document.getElementById("rua").value,
-    numero: document.getElementById("numero").value,
-    bairro: document.getElementById("bairro").value,
-    cidade: document.getElementById("cidade").value,
-    estado: document.getElementById("estado").value
-  };
-
-  fetch("https://script.google.com/macros/s/AKfycbyu36fkSIGsOe9fcoYYAa7obo-FfQaXRRDJiVYz0V8rWyIdgtC8wNWSucn_84pQ7J05ng/exec", {
-    method: "POST",
-    mode: "no-cors",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(dados)
-  });
-
-  successMsg.style.display = "block";
-  form.reset();
-});
-
-</script>
+        <div class="footer">
+            Procuradoria-Geral de Justiça do Estado do Maranhão &bull; Sistema de Gestão Setorial
+        </div>
+    </div>
 
 </body>
 </html>
