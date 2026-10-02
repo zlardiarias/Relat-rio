@@ -13,113 +13,109 @@
             margin: 0;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8fafc;
-            color: #1d2d44;
+            background: #eef2f7;
+            padding: 20px;
         }
 
-        /* Topbar institucional fixa ou de destaque de página inteira */
-        .header-system {
+        .form-card {
+            background: #ffffff;
             width: 100%;
+            max-width: 650px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(11, 37, 69, 0.12);
+            border: 1px solid #d8e2ec;
+            overflow: hidden;
+            margin: auto;
+        }
+
+        .header-system {
             background: linear-gradient(135deg, #0b2545 0%, #134074 100%);
-            padding: 25px 20px;
+            padding: 24px 20px;
             text-align: center;
             border-bottom: 4px solid #8da9c4;
-            box-shadow: 0 4px 12px rgba(11, 37, 69, 0.1);
         }
 
         .header-system img {
-            max-width: 200px;
+            max-width: 180px;
             height: auto;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             background: rgba(255, 255, 255, 0.95);
-            padding: 8px 12px;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            padding: 6px 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .form-title {
-            font-size: 18px;
+            font-size: 15px;
             color: #ffffff;
             margin: 0;
             font-weight: 600;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.6px;
             text-transform: uppercase;
         }
 
-        /* Container principal ocupando o espaço central sem bordas flutuantes */
-        .main-wrapper {
-            width: 100%;
-            max-width: 800px;
-            padding: 40px 20px;
-            flex: 1;
-        }
-
         .form-body {
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
+            padding: 30px;
         }
 
         .input-group {
-            margin-bottom: 24px;
+            margin-bottom: 18px;
             text-align: left;
         }
 
         .input-group label {
             display: block;
-            margin-bottom: 8px;
-            font-size: 13px;
+            margin-bottom: 6px;
+            font-size: 12px;
             color: #134074;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.3px;
         }
 
         .input-group input, 
         .input-group textarea {
             width: 100%;
-            padding: 14px 16px;
+            padding: 11px 14px;
             border: 1.5px solid #cbd5e1;
             border-radius: 6px;
             font-size: 14px;
-            background-color: #fcfdfe;
+            background-color: #fafbfc;
             color: #1d2d44;
             outline: none;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
         }
 
         .input-group input:focus, 
         .input-group textarea:focus {
             border-color: #0b2545;
             background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(11, 37, 69, 0.1);
+            box-shadow: 0 0 0 3px rgba(11, 37, 69, 0.08);
         }
 
         .input-group textarea {
             resize: vertical;
-            height: 110px;
+            height: 90px;
         }
 
         .btn-submit {
             width: 100%;
-            padding: 15px;
+            padding: 13px;
             background: #0b2545;
             color: white;
             border: none;
             border-radius: 6px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 5px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             transition: background 0.2s, transform 0.1s;
-            box-shadow: 0 4px 12px rgba(11, 37, 69, 0.15);
+            box-shadow: 0 4px 10px rgba(11, 37, 69, 0.15);
         }
 
         .btn-submit:hover {
@@ -131,24 +127,24 @@
         }
 
         .footer {
-            margin-top: 30px;
+            margin-top: 20px;
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             color: #64748b;
             border-top: 1px solid #e2e8f0;
-            padding-top: 20px;
+            padding-top: 15px;
             font-weight: 500;
         }
     </style>
 </head>
 <body>
 
-    <div class="header-system">
-        <img src="logo-mpma.png" alt="Logo do Ministério Público do Estado do Maranhão">
-        <div class="form-title">Relatório de Atividades Diárias da SEPLAG</div>
-    </div>
+    <div class="form-card">
+        <div class="header-system">
+            <img src="logo-mpma.png" alt="Logo do Ministério Público do Estado do Maranhão">
+            <div class="form-title">Relatório de Atividades Diárias da SEPLAG</div>
+        </div>
 
-    <div class="main-wrapper">
         <div class="form-body">
             <form action="#" method="POST">
                 
