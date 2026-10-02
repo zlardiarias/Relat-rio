@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cadastro de Diaristas - Zlar</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background: #ffffff; /* página branca */
+  padding: 20px;
+}
+
+/* Card do formulário */
+form {
+  background: #0b1d33;
+  padding: 2px 5px 5px; /* TOPO QUASE ZERO */
+  border-radius: 9px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.logo-container img {
+  width: 240px;  /* logo maior */
+  height: auto;
+  margin: -15;
+  display: block;
+  .logo-container { line-height: 0; }
+}
+/* Títulos */
+h2 {
+  margin-top: -122px;
+  padding: 0;
+  text-align: center;
+  color: #ffffff;
+}
+p {
+  margin-top: 0;
+  margin-bottom: 12px;
+  text-align: center;
+  color: #cbd5e1;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid #94a3b8;
+  background: #f1f5ff; /* azul claro */
+}
+
+input:focus {
+  outline: none;
+  border-color: #d4a857;
+  background: #e8efff;
+}
+
+/* Botão */
+button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 18px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #d4a857;
+  color: #0b1d33;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #c09847;
+}
+
+/* Mensagem sucesso */
+.success {
+  display: none;
+  margin-top: 15px;
+  padding: 12px;
+  background: #e6f7ee;
+  color: #1e7a4b;
+  text-align: center;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+/* Rodapé */
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #cbd5e1;
+  font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<form id="formulario">
+
+  <div class="logo-container">
+    <img src="logo.png" alt="Logo Zlar">
+  </div>
+
+  <h2>Cadastro de Diarista</h2>
+  <p>Preencha seus dados</p>
+
+  <input id="nome" placeholder="Nome completo" required>
+  <input id="cpf" placeholder="CPF (somente números)" required>
+  <input id="telefone" placeholder="Telefone / WhatsApp" required>
+  <input id="email" placeholder="E-mail">
+
+<input id="cep" placeholder="CEP" required>
+<input id="rua" placeholder="Rua" readonly>
+<input id="numero" placeholder="Nº" required>
+<input id="bairro" placeholder="Bairro" readonly>
+<input id="cidade" placeholder="Cidade" readonly>
+<input id="estado" placeholder="Estado" readonly>
+
+  <button type="submit">Enviar cadastro</button>
+
+  <div class="success" id="successMsg">
+    Cadastro enviado com sucesso 💛
+  </div>
+
+  <div class="footer">
+    Zlar – Cuidando do Seu Lar
+  </div>
+
+</form>
+
+<script>
+const cep = document.getElementById("cep");
+const rua = document.getElementById("rua");
+const numero = document.getElementById("numero");  
+const bairro = document.getElementById("bairro");
+const cidade = document.getElementById("cidade");
+const estado = document.getElementById("estado");
+const cpf = document.getElementById("cpf");
+const form = document.getElementById("formulario");
+const successMsg = document.getElementById("successMsg");
+
+cep.addEventListener("blur", () => {
+  const v = cep.value.replace(/\D/g, "");
+  if (v.length !== 8) return;
+
+  fetch("https://viacep.com.br/ws/" + v + "/json/")
+    .then(r => r.json())
+    .then(d => {
+      if (d.erro) return;
+      rua.value = d.logradouro;
+      bairro.value = d.bairro;
+      cidade.value = d.localidade;
+      estado.value = d.uf;
+    });
+});
+
+function cpfValido(cpf) {
+  cpf = cpf.replace(/\D/g, "");
+  if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+  let soma = 0;
+  for (let i = 0; i < 9; i++) soma += cpf[i] * (10 - i);
+  let resto = (soma * 10) % 11;
+  if (resto === 10) resto = 0;
+  if (resto != cpf[9]) return false;
+
+  soma = 0;
+  for (let i = 0; i < 10; i++) soma += cpf[i] * (11 - i);
+  resto = (soma * 10) % 11;
+
+  return resto == cpf[10];
+}
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+
+  if (!cpfValido(cpf.value)) {
+    alert("CPF inválido");
+    return;
+  }
+
+  const dados = {
+    nome: document.getElementById("nome").value,
+    cpf: document.getElementById("cpf").value,
+    telefone: document.getElementById("telefone").value,
+    email: document.getElementById("email").value,
+    cep: document.getElementById("cep").value,
+    rua: document.getElementById("rua").value,
+    numero: document.getElementById("numero").value,
+    bairro: document.getElementById("bairro").value,
+    cidade: document.getElementById("cidade").value,
+    estado: document.getElementById("estado").value
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbyu36fkSIGsOe9fcoYYAa7obo-FfQaXRRDJiVYz0V8rWyIdgtC8wNWSucn_84pQ7J05ng/exec", {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(dados)
+  });
+
+  successMsg.style.display = "block";
+  form.reset();
+});
+
+</script>
+
+</body>
+</html>
