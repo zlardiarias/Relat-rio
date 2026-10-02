@@ -184,6 +184,7 @@
             <!-- Iframe invisível para capturar a resposta sem erros de CORS -->
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="iniciarEnvioConcluido()"></iframe>
 
+            <!-- URL inserida no atributo action do formulário -->
             <form id="report-form" action="https://script.google.com/macros/s/AKfycbx6nbtWZhdRgJfQGsAzPWj0jeQRhXRJP3Xm-nE5WGpErK6WE_fMZiYaVL2YIiWTjn24/exec" method="POST" target="hidden_iframe" onsubmit="prepararEnvio()">
                 
                 <div class="input-group">
