@@ -16,137 +16,160 @@
             justify-content: center;
             align-items: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #eef2f7;
-            padding: 20px;
+            background: linear-gradient(135deg, #f4f7fc 0%, #e2e8f0 100%);
+            padding: 30px 20px;
         }
 
         .form-card {
             background: #ffffff;
             width: 100%;
-            max-width: 650px;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(11, 37, 69, 0.12);
-            border: 1px solid #d8e2ec;
+            max-width: 700px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(11, 37, 69, 0.12);
+            border: 1px solid rgba(216, 226, 236, 0.8);
             overflow: hidden;
-            margin: auto;
+            position: relative;
+        }
+
+        /* Elemento decorativo superior */
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #134074, #8da9c4, #0b2545);
         }
 
         .header-system {
             background: linear-gradient(135deg, #0b2545 0%, #134074 100%);
-            padding: 24px 20px;
+            padding: 35px 20px;
             text-align: center;
-            border-bottom: 4px solid #8da9c4;
+            position: relative;
         }
 
         .header-system img {
-            max-width: 180px;
+            max-width: 160px;
             height: auto;
-            margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 6px 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            background: #ffffff;
+            padding: 8px 14px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .form-title {
-            font-size: 15px;
+            font-size: 17px;
             color: #ffffff;
             margin: 0;
-            font-weight: 600;
-            letter-spacing: 0.6px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
         }
 
+        .form-subtitle {
+            font-size: 12px;
+            color: #8da9c4;
+            margin-top: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
         .form-body {
-            padding: 30px;
+            padding: 40px;
         }
 
         .input-group {
-            margin-bottom: 18px;
+            margin-bottom: 22px;
             text-align: left;
         }
 
         .input-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-size: 12px;
             color: #134074;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
         }
 
         .input-group input, 
         .input-group textarea {
             width: 100%;
-            padding: 11px 14px;
+            padding: 13px 16px;
             border: 1.5px solid #cbd5e1;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 14px;
-            background-color: #fafbfc;
+            background-color: #f8fafc;
             color: #1d2d44;
             outline: none;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .input-group input:focus, 
         .input-group textarea:focus {
-            border-color: #0b2545;
+            border-color: #134074;
             background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(11, 37, 69, 0.08);
+            box-shadow: 0 0 0 4px rgba(19, 64, 116, 0.1);
         }
 
         .input-group textarea {
             resize: vertical;
-            height: 90px;
+            height: 100px;
         }
 
         .btn-submit {
             width: 100%;
-            padding: 13px;
-            background: #0b2545;
+            padding: 15px;
+            background: linear-gradient(135deg, #0b2545 0%, #134074 100%);
             color: white;
             border: none;
-            border-radius: 6px;
-            font-size: 14px;
+            border-radius: 8px;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 5px;
+            margin-top: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: background 0.2s, transform 0.1s;
-            box-shadow: 0 4px 10px rgba(11, 37, 69, 0.15);
+            letter-spacing: 0.8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(11, 37, 69, 0.2);
         }
 
         .btn-submit:hover {
-            background: #134074;
+            background: linear-gradient(135deg, #134074 0%, #1d2d44 100%);
+            box-shadow: 0 8px 20px rgba(11, 37, 69, 0.3);
+            transform: translateY(-1px);
         }
 
         .btn-submit:active {
-            transform: scale(0.99);
+            transform: translateY(0);
         }
 
-        /* Estilo para a mensagem de sucesso */
         #success-message {
             display: none;
             background-color: #d1e7dd;
             color: #0f5132;
             border: 1px solid #badbcc;
-            padding: 15px;
-            border-radius: 6px;
+            padding: 16px;
+            border-radius: 8px;
             text-align: center;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(15, 81, 50, 0.05);
         }
 
         .footer {
-            margin-top: 20px;
+            margin-top: 30px;
             text-align: center;
             font-size: 11px;
             color: #64748b;
             border-top: 1px solid #e2e8f0;
-            padding-top: 15px;
-            font-weight: 500;
+            padding-top: 20px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
         }
     </style>
 </head>
@@ -155,18 +178,19 @@
     <div class="form-card">
         <div class="header-system">
             <img src="logo-mpma.png" alt="Logo do Ministério Público do Estado do Maranhão">
-            <div class="form-title">Relatório de Atividades Diárias &bull; SEPLAG</div>
+            <div class="form-title">Relatório de Atividades Diárias</div>
+            <div class="form-subtitle">SEPLAG &bull; Ministério Público do Maranhão</div>
         </div>
 
         <div class="form-body">
             <!-- Mensagem de Sucesso -->
-            <div id="success-message">Relatório enviado com sucesso! Os dados foram salvos na planilha.</div>
+            <div id="success-message">Relatório enviado com sucesso! Os dados foram registados na folha de cálculo.</div>
 
             <form id="report-form">
                 
                 <div class="input-group">
                     <label for="nome">Nome do Servidor / Membro</label>
-                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+                    <input type="text" id="nome" name="nome" placeholder="Digite o seu nome completo" required>
                 </div>
 
                 <div class="input-group">
@@ -186,7 +210,7 @@
 
                 <div class="input-group">
                     <label for="demandas">Demandas em Andamento</label>
-                    <textarea id="demandas" name="demandas" placeholder="Informe o status das demandas correntes e prazos..."></textarea>
+                    <textarea id="demandas" name="demandas" placeholder="Informe o estado das demandas correntes e prazos..."></textarea>
                 </div>
 
                 <div class="input-group">
@@ -198,7 +222,7 @@
             </form>
 
             <div class="footer">
-                Procuradoria-Geral de Justiça do Estado do Maranhão &bull; MPMA
+                Procuradoria-Geral de Justiça do Estado do Maranhão &bull; SEPLAG
             </div>
         </div>
     </div>
@@ -212,7 +236,7 @@
         form.addEventListener('submit', e => {
             e.preventDefault();
             submitButton.disabled = true;
-            submitButton.textContent = 'Enviando...';
+            submitButton.textContent = 'A enviar...';
 
             fetch(scriptURL, { method: 'POST', body: new FormData(form)})
                 .then(response => {
@@ -221,13 +245,12 @@
                     submitButton.disabled = false;
                     submitButton.textContent = 'Enviar Relatório';
                     
-                    // Oculta a mensagem de sucesso após 5 segundos
                     setTimeout(() => {
                         successMessage.style.display = 'none';
                     }, 5000);
                 })
                 .catch(error => {
-                    alert('Erro ao enviar o relatório. Verifique sua conexão.');
+                    alert('Erro ao enviar o relatório. Verifique a sua ligação.');
                     submitButton.disabled = false;
                     submitButton.textContent = 'Enviar Relatório';
                 });
