@@ -20,7 +20,6 @@
             padding: 20px;
         }
 
-        /* Container Principal com Estilo Institucional */
         .form-container {
             background: #ffffff;
             padding: 35px 30px;
@@ -28,31 +27,24 @@
             max-width: 550px;
             width: 100%;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-top: 5px solid #003366; /* Azul Institucional */
+            border-top: 5px solid #003366;
         }
 
-        /* Cabeçalho Institucional */
         .header-institutional {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border-bottom: 1px solid #e2e8f0;
             padding-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
-        .header-institutional h1 {
-            font-size: 18px;
-            color: #cc0000; /* Vermelho institucional */
-            margin: 0;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .header-institutional h2 {
-            font-size: 15px;
-            color: #003366; /* Azul institucional */
-            margin: 5px 0 0 0;
-            font-weight: 600;
+        .header-institutional img {
+            max-width: 220px;
+            height: auto;
+            margin-bottom: 10px;
         }
 
         .form-title {
@@ -100,7 +92,6 @@
             height: 90px;
         }
 
-        /* Botão de Envio */
         .btn-submit {
             width: 100%;
             padding: 12px;
@@ -119,7 +110,6 @@
             background: #002244;
         }
 
-        /* Rodapé Institucional */
         .footer {
             margin-top: 25px;
             text-align: center;
@@ -133,10 +123,8 @@
 <body>
 
     <div class="form-container">
-        <!-- Cabeçalho com dados institucionais do MPMA -->
         <div class="header-institutional">
-            <h1>Ministério Público</h1>
-            <h2>Do Estado do Maranhão</h2>
+            <img src="logo-mpma.png.png" alt="Logo do Ministério Público do Estado do Maranhão">
         </div>
 
         <div class="form-title">Relatório de Atividades Diárias do Setor</div>
