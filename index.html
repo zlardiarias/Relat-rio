@@ -16,25 +16,26 @@
             justify-content: center;
             align-items: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f2f5;
+            background: #eef2f7; /* Fundo geral corporativo e suave */
             padding: 20px;
         }
 
         .form-container {
-            background: #ffffff;
-            padding: 35px 30px;
-            border-radius: 8px;
-            max-width: 550px;
+            background: #f4f7fb; /* Fundo interno a combinar com o tema do sistema */
+            padding: 40px 35px;
+            border-radius: 10px;
+            max-width: 600px;
             width: 100%;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-top: 5px solid #003366;
+            box-shadow: 0 8px 24px rgba(0, 31, 63, 0.12);
+            border: 1px solid #d0dbe7;
+            border-top: 6px solid #0b2545; /* Azul institucional forte */
         }
 
         .header-institutional {
             text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 15px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #cbd5e1;
+            padding-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -42,21 +43,23 @@
         }
 
         .header-institutional img {
-            max-width: 220px;
+            max-width: 240px;
             height: auto;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .form-title {
-            font-size: 16px;
-            color: #2d3748;
-            margin-bottom: 20px;
+            font-size: 17px;
+            color: #0b2545;
+            margin-bottom: 25px;
             text-align: center;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
         }
 
         .input-group {
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             text-align: left;
         }
 
@@ -64,59 +67,66 @@
             display: block;
             margin-bottom: 6px;
             font-size: 13px;
-            color: #4a5568;
-            font-weight: 600;
+            color: #134074; /* Tom azulado coordenado para os rótulos */
+            font-weight: 700;
         }
 
         .input-group input, 
         .input-group textarea {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #cbd5e0;
-            border-radius: 4px;
+            padding: 11px 14px;
+            border: 1.5px solid #9ba8b7;
+            border-radius: 6px;
             font-size: 14px;
-            background-color: #fdfdfd;
-            color: #2d3748;
+            background-color: #ffffff; /* APENAS AS CAIXAS DE SELEÇÃO/TEXTO BRANCAS */
+            color: #1d2d44;
             outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all 0.25s ease;
         }
 
         .input-group input:focus, 
         .input-group textarea:focus {
-            border-color: #003366;
-            box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+            border-color: #0b2545;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(11, 37, 69, 0.15);
         }
 
         .input-group textarea {
             resize: vertical;
-            height: 90px;
+            height: 95px;
         }
 
         .btn-submit {
             width: 100%;
-            padding: 12px;
-            background: #003366;
+            padding: 13px;
+            background: #0b2545; /* Botão elegante no tom do sistema */
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.2s;
+            margin-top: 15px;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 10px rgba(11, 37, 69, 0.2);
         }
 
         .btn-submit:hover {
-            background: #002244;
+            background: #134074;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.99);
         }
 
         .footer {
-            margin-top: 25px;
+            margin-top: 30px;
             text-align: center;
             font-size: 11px;
-            color: #718096;
-            border-top: 1px solid #e2e8f0;
+            color: #4a5568;
+            border-top: 1px solid #cbd5e1;
             padding-top: 15px;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -124,7 +134,8 @@
 
     <div class="form-container">
         <div class="header-institutional">
-            <img src="logo-mpma.png.png" alt="Logo do Ministério Público do Estado do Maranhão">
+            <!-- Nota: Se o seu ficheiro no GitHub se chamar apenas logo.png, altere o src abaixo para "logo.png" -->
+            <img src="logo-mpma.png" alt="Logo do Ministério Público do Estado do Maranhão">
         </div>
 
         <div class="form-title">Relatório de Atividades Diárias do Setor</div>
