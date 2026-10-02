@@ -126,6 +126,19 @@
             transform: scale(0.99);
         }
 
+        /* Estilo para a mensagem de sucesso */
+        #success-message {
+            display: none;
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
         .footer {
             margin-top: 20px;
             text-align: center;
@@ -146,7 +159,10 @@
         </div>
 
         <div class="form-body">
-            <form action="https://script.google.com/macros/s/AKfycbwz9pwSCkNtOkNHblumgm61IQSMhDeE_XrV_VSKXWtRnmumsV5Ov1_Pf99pV6UorFe2/exec" method="POST">
+            <!-- Mensagem de Sucesso -->
+            <div id="success-message">Relatório enviado com sucesso! Os dados foram salvos na planilha.</div>
+
+            <form id="report-form">
                 
                 <div class="input-group">
                     <label for="nome">Nome do Servidor / Membro</label>
@@ -178,7 +194,7 @@
                     <textarea id="observacao" name="observacao" placeholder="Registros adicionais relevantes para o setor..."></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit">Enviar Relatório</button>
+                <button type="submit" id="btn-submit" class="btn-submit">Enviar Relatório</button>
             </form>
 
             <div class="footer">
@@ -187,5 +203,35 @@
         </div>
     </div>
 
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwz9pwSCkNtOkNHblumgm61IQSMhDeE_XrV_VSKXWtRnmumsV5Ov1_Pf99pV6UorFe2/exec';
+        const form = document.getElementById('report-form');
+        const successMessage = document.getElementById('success-message');
+        const submitButton = document.getElementById('btn-submit');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            submitButton.disabled = true;
+            submitButton.textContent = 'Enviando...';
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    successMessage.style.display = 'block';
+                    form.reset();
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Enviar Relatório';
+                    
+                    // Oculta a mensagem de sucesso após 5 segundos
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                })
+                .catch(error => {
+                    alert('Erro ao enviar o relatório. Verifique sua conexão.');
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Enviar Relatório';
+                });
+        });
+    </script>
 </body>
 </html>
