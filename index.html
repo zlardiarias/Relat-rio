@@ -151,7 +151,7 @@
         }
 
         .btn-submit:hover {
-            background: linear-gradient(135deg, #134074 100%, #1d2d44 100%);
+            background: linear-gradient(135deg, #134074 0%, #1d2d44 100%);
             box-shadow: 0 8px 20px rgba(11, 37, 69, 0.3);
             transform: translateY(-1px);
         }
@@ -184,7 +184,7 @@
             <!-- Iframe invisível para capturar a resposta sem erros de CORS -->
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="iniciarEnvioConcluido()"></iframe>
 
-            <form id="report-form" action="[https://script.google.com/macros/s/AKfycbwz9pwSCkNtOkNHblumgm61IQSMhDeE_XrV_VSKXWtRnmumsV5Ov1_Pf99pV6UorFe2/exec](https://script.google.com/macros/s/AKfycbwz9pwSCkNtOkNHblumgm61IQSMhDeE_XrV_VSKXWtRnmumsV5Ov1_Pf99pV6UorFe2/exec)" method="POST" target="hidden_iframe" onsubmit="prepararEnvio()">
+            <form id="report-form" action="https://script.google.com/macros/s/AKfycbx6nbtWZhdRgJfQGsAzPWj0jeQRhXRJP3Xm-nE5WGpErK6WE_fMZiYaVL2YIiWTjn24/exec" method="POST" target="hidden_iframe" onsubmit="prepararEnvio()">
                 
                 <div class="input-group">
                     <label for="nome">Nome do Servidor / Membro</label>
