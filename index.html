@@ -74,7 +74,6 @@
             font-weight: 600;
             margin-bottom: 25px;
         }
-        /* Alerta amarelo da contagem regressiva */
         #cancel-countdown-box {
             display: none;
             background-color: #fff3cd;
@@ -166,19 +165,14 @@
         </div>
 
         <div class="form-body">
-            <!-- Caixa amarela com contagem regressiva e o botão de cancelar -->
             <div id="cancel-countdown-box">
                 Enviando relatório em <span id="segundos-restantes" style="font-size: 18px; color: #b78103;">6</span> segundos...<br>
                 <button type="button" class="btn-cancelar" onclick="cancelarEnvio()">❌ Cancelar / Ajustar Relatório</button>
             </div>
 
-            <!-- Alerta de Sucesso -->
             <div id="success-alert">Relatório enviado com sucesso!</div>
 
-            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
-            <!-- Substitua "SUA_URL_DO_WEB_APP_AQUI" pela URL do seu Apps Script -->
-            <form id="report-form" action="SUA_URL_DO_WEB_APP_AQUI" method="POST" target="hidden_iframe">
+            <form id="report-form" onsubmit="event.preventDefault(); iniciarContagemRegressiva();">
                 
                 <div class="input-group">
                     <label for="nome">Nome do Servidor / Membro</label>
@@ -210,7 +204,7 @@
                     <textarea id="observacao" name="observacao" placeholder="Registros adicionais relevantes para o setor..."></textarea>
                 </div>
 
-                <button type="button" id="btn-submit" class="btn-submit" onclick="iniciarContagemRegressiva()">Enviar Relatório</button>
+                <button type="submit" id="btn-submit" class="btn-submit">Enviar Relatório</button>
             </form>
 
             <div class="footer">
@@ -223,59 +217,5 @@
         let temporizador = null;
         let segundos = 6;
 
-        function iniciarContagemRegressiva() {
-            // Valida se os campos obrigatórios estão preenchidos antes de iniciar o timer
-            const nome = document.getElementById('nome').value;
-            const email = document.getElementById('email').value;
-            const data = document.getElementById('data').value;
-            const entregas = document.getElementById('entregas').value;
-
-            if (!nome || !email || !data || !entregas) {
-                alert('Por favor, preencha todos os campos obrigatórios antes de enviar.');
-                return;
-            }
-
-            // Esconde o botão de envio e mostra o aviso amarelo com o botão de cancelar
-            document.getElementById('btn-submit').style.display = 'none';
-            document.getElementById('cancel-countdown-box').style.display = 'block';
-            
-            segundos = 6;
-            document.getElementById('segundos-restantes').textContent = segundos;
-
-            // Inicia o cronômetro
-            temporizador = setInterval(() => {
-                segundos--;
-                document.getElementById('segundos-restantes').textContent = segundos;
-
-                if (segundos <= 0) {
-                    clearInterval(temporizador);
-                    document.getElementById('cancel-countdown-box').style.display = 'none';
-                    
-                    // Dispara o envio real para o Google Sheets
-                    document.getElementById('report-form').submit();
-                    
-                    // Mostra o aviso de sucesso e limpa o formulário
-                    setTimeout(() => {
-                        document.getElementById('success-alert').style.display = 'block';
-                        document.getElementById('report-form').reset();
-                        document.getElementById('btn-submit').style.display = 'block';
-
-                        setTimeout(() => {
-                            document.getElementById('success-alert').style.display = 'none';
-                        }, 5000);
-                    }, 1000);
-                }
-            }, 1000);
-        }
-
-        function cancelarEnvio() {
-            // Para o cronômetro de contagem
-            clearInterval(temporizador);
-            
-            // Oculta o aviso amarelo e traz o botão principal de volta
-            document.getElementById('cancel-countdown-box').style.display = 'none';
-            document.getElementById('btn-submit').style.display = 'block';
-        }
-    </script>
-</body>
-</html>
+        // URL oficial do Apps Script integrada
+        const URL_WEB_APP = "
