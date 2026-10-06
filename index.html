@@ -74,29 +74,32 @@
             font-weight: 600;
             margin-bottom: 25px;
         }
-        /* Estilo da caixa de contagem regressiva para cancelamento */
+        /* Alerta amarelo da contagem regressiva */
         #cancel-countdown-box {
             display: none;
             background-color: #fff3cd;
             color: #856404;
             border: 1px solid #ffeeba;
-            padding: 16px;
+            padding: 18px;
             border-radius: 8px;
             text-align: center;
             margin-bottom: 25px;
             font-weight: 600;
+            box-shadow: 0 4px 10px rgba(133, 100, 4, 0.1);
         }
         .btn-cancelar {
             background-color: #dc3545;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 10px 18px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 12px;
             text-transform: uppercase;
             font-size: 12px;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
         }
         .btn-cancelar:hover { background-color: #bd2130; }
 
@@ -163,18 +166,19 @@
         </div>
 
         <div class="form-body">
-            <!-- Alerta de Contagem Regressiva para Cancelar -->
+            <!-- Caixa amarela com contagem regressiva e o botão de cancelar -->
             <div id="cancel-countdown-box">
-                Enviando relatório em <span id="segundos-restantes">6</span> segundos...<br>
+                Enviando relatório em <span id="segundos-restantes" style="font-size: 18px; color: #b78103;">6</span> segundos...<br>
                 <button type="button" class="btn-cancelar" onclick="cancelarEnvio()">❌ Cancelar / Ajustar Relatório</button>
             </div>
 
             <!-- Alerta de Sucesso -->
             <div id="success-alert">Relatório enviado com sucesso!</div>
 
-            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="iniciarEnvioConcluido()"></iframe>
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
-            <form id="report-form" action="SUA_URL_DO_WEB_APP_AQUI" method="POST" target="hidden_iframe" onsubmit="interceptarEnvio(event)">
+            <!-- Substitua "SUA_URL_DO_WEB_APP_AQUI" pela URL do seu Apps Script -->
+            <form id="report-form" action="SUA_URL_DO_WEB_APP_AQUI" method="POST" target="hidden_iframe">
                 
                 <div class="input-group">
                     <label for="nome">Nome do Servidor / Membro</label>
@@ -206,7 +210,7 @@
                     <textarea id="observacao" name="observacao" placeholder="Registros adicionais relevantes para o setor..."></textarea>
                 </div>
 
-                <button type="submit" id="btn-submit" class="btn-submit">Enviar Relatório</button>
+                <button type="button" id="btn-submit" class="btn-submit" onclick="iniciarContagemRegressiva()">Enviar Relatório</button>
             </form>
 
             <div class="footer">
@@ -217,20 +221,28 @@
 
     <script>
         let temporizador = null;
-        let segundos = 6; // Tempo de espera (6 segundos)
+        let segundos = 6;
 
-        function interceptarEnvio(event) {
-            // Impede o envio imediato padrão
-            event.preventDefault();
+        function iniciarContagemRegressiva() {
+            // Valida se os campos obrigatórios estão preenchidos antes de iniciar o timer
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const data = document.getElementById('data').value;
+            const entregas = document.getElementById('entregas').value;
 
-            // Mostra a caixa amarela de contagem regressiva
+            if (!nome || !email || !data || !entregas) {
+                alert('Por favor, preencha todos os campos obrigatórios antes de enviar.');
+                return;
+            }
+
+            // Esconde o botão de envio e mostra o aviso amarelo com o botão de cancelar
+            document.getElementById('btn-submit').style.display = 'none';
             document.getElementById('cancel-countdown-box').style.display = 'block';
-            document.getElementById('btn-submit').disabled = true;
             
             segundos = 6;
             document.getElementById('segundos-restantes').textContent = segundos;
 
-            // Inicia a contagem regressiva segundo a segundo
+            // Inicia o cronômetro
             temporizador = setInterval(() => {
                 segundos--;
                 document.getElementById('segundos-restantes').textContent = segundos;
@@ -238,36 +250,31 @@
                 if (segundos <= 0) {
                     clearInterval(temporizador);
                     document.getElementById('cancel-countdown-box').style.display = 'none';
-                    // Agora sim, dispara o envio oficial para o Google Sheets
+                    
+                    // Dispara o envio real para o Google Sheets
                     document.getElementById('report-form').submit();
+                    
+                    // Mostra o aviso de sucesso e limpa o formulário
+                    setTimeout(() => {
+                        document.getElementById('success-alert').style.display = 'block';
+                        document.getElementById('report-form').reset();
+                        document.getElementById('btn-submit').style.display = 'block';
+
+                        setTimeout(() => {
+                            document.getElementById('success-alert').style.display = 'none';
+                        }, 5000);
+                    }, 1000);
                 }
             }, 1000);
         }
 
         function cancelarEnvio() {
-            // Para o relógio
+            // Para o cronômetro de contagem
             clearInterval(temporizador);
-            // Esconde o aviso amarelo
-            document.getElementById('cancel-countdown-box').style.display = 'none';
-            // Reativa o botão de enviar
-            document.getElementById('btn-submit').disabled = false;
-            // Avisa o usuário
-            alert('Envio cancelado! Você pode alterar os campos necessários.');
-        }
-
-        function iniciarEnvioConcluido() {
-            // Executado quando a resposta do Google chega via iframe
-            const alertBox = document.getElementById('success-alert');
-            alertBox.style.display = 'block';
-            document.getElementById('report-form').reset();
             
-            const btn = document.getElementById('btn-submit');
-            btn.disabled = false;
-            btn.textContent = 'Enviar Relatório';
-
-            setTimeout(() => {
-                alertBox.style.display = 'none';
-            }, 6000);
+            // Oculta o aviso amarelo e traz o botão principal de volta
+            document.getElementById('cancel-countdown-box').style.display = 'none';
+            document.getElementById('btn-submit').style.display = 'block';
         }
     </script>
 </body>
