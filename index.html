@@ -143,7 +143,7 @@
             text-transform: uppercase;
             box-shadow: 0 6px 15px rgba(11, 37, 69, 0.2);
         }
-        .btn-submit:hover { background: linear-gradient(135deg, #134074 0%, #1d2d44 100%); }
+        .btn-submit:hover { background: linear-gradient(135deg, #134074 100%, #1d2d44 100%); }
         .footer {
             margin-top: 30px;
             text-align: center;
@@ -173,7 +173,6 @@
             <div id="success-alert">Relatório enviado com sucesso!</div>
 
             <form id="report-form" onsubmit="event.preventDefault(); iniciarContagemRegressiva();">
-                
                 <div class="input-group">
                     <label for="nome">Nome do Servidor / Membro</label>
                     <input type="text" id="nome" name="nome" placeholder="Digite o seu nome completo" required>
@@ -217,5 +216,74 @@
         let temporizador = null;
         let segundos = 6;
 
-        // URL oficial do Apps Script integrada
-        const URL_WEB_APP = "
+        // URL correta do Web App integrada
+        const URL_WEB_APP = "https://script.google.com/macros/s/AKfycbx6nbtWZhdRgJfQGsAzPWj0jeQRhXRJP3Xm-nE5WGpErK6WE_fMZiYaVL2YIiWTjn24/exec";
+
+        function iniciarContagemRegressiva() {
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const data = document.getElementById('data').value;
+            const entregas = document.getElementById('entregas').value;
+
+            if (!nome || !email || !data || !entregas) {
+                alert('Por favor, preencha todos os campos obrigatórios antes de enviar.');
+                return;
+            }
+
+            document.getElementById('btn-submit').style.display = 'none';
+            document.getElementById('cancel-countdown-box').style.display = 'block';
+            
+            segundos = 6;
+            document.getElementById('segundos-restantes').textContent = segundos;
+
+            temporizador = setInterval(() => {
+                segundos--;
+                document.getElementById('segundos-restantes').textContent = segundos;
+
+                if (segundos <= 0) {
+                    clearInterval(temporizador);
+                    document.getElementById('cancel-countdown-box').style.display = 'none';
+                    enviarDadosParaGoogle();
+                }
+            }, 1000);
+        }
+
+        function cancelarEnvio() {
+            clearInterval(temporizador);
+            document.getElementById('cancel-countdown-box').style.display = 'none';
+            document.getElementById('btn-submit').style.display = 'block';
+        }
+
+        function enviarDadosParaGoogle() {
+            const formData = new URLSearchParams();
+            formData.append('nome', document.getElementById('nome').value);
+            formData.append('email', document.getElementById('email').value);
+            formData.append('data', document.getElementById('data').value);
+            formData.append('entregas', document.getElementById('entregas').value);
+            formData.append('demandas', document.getElementById('demandas').value);
+            formData.append('observacao', document.getElementById('observacao').value);
+
+            fetch(URL_WEB_APP, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            })
+            .then(() => {
+                const alertBox = document.getElementById('success-alert');
+                alertBox.style.display = 'block';
+                document.getElementById('report-form').reset();
+                document.getElementById('btn-submit').style.display = 'block';
+
+                setTimeout(() => {
+                    alertBox.style.display = 'none';
+                }, 5000);
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Ocorreu um erro ao enviar o relatório. Tente novamente.');
+                document.getElementById('btn-submit').style.display = 'block';
+            });
+        }
+    </script>
+</body>
+</html>
