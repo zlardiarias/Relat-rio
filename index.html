@@ -74,6 +74,7 @@
             font-weight: 600;
             margin-bottom: 25px;
         }
+        /* Alerta amarelo da contagem regressiva */
         #cancel-countdown-box {
             display: none;
             background-color: #fff3cd;
@@ -165,14 +166,19 @@
         </div>
 
         <div class="form-body">
+            <!-- Caixa amarela com contagem regressiva e o botão de cancelar -->
             <div id="cancel-countdown-box">
                 Enviando relatório em <span id="segundos-restantes" style="font-size: 18px; color: #b78103;">6</span> segundos...<br>
                 <button type="button" class="btn-cancelar" onclick="cancelarEnvio()">❌ Cancelar / Ajustar Relatório</button>
             </div>
 
+            <!-- Alerta de Sucesso -->
             <div id="success-alert">Relatório enviado com sucesso!</div>
 
-            <form id="report-form" onsubmit="event.preventDefault(); iniciarContagemRegressiva();">
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+            <!-- Substitua "SUA_URL_DO_WEB_APP_AQUI" pela URL do seu Apps Script -->
+            <form id="report-form" action="SUA_URL_DO_WEB_APP_AQUI" method="POST" target="hidden_iframe">
                 
                 <div class="input-group">
                     <label for="nome">Nome do Servidor / Membro</label>
@@ -204,7 +210,7 @@
                     <textarea id="observacao" name="observacao" placeholder="Registros adicionais relevantes para o setor..."></textarea>
                 </div>
 
-                <button type="submit" id="btn-submit" class="btn-submit">Enviar Relatório</button>
+                <button type="button" id="btn-submit" class="btn-submit" onclick="iniciarContagemRegressiva()">Enviar Relatório</button>
             </form>
 
             <div class="footer">
@@ -217,10 +223,8 @@
         let temporizador = null;
         let segundos = 6;
 
-        // COLE AQUI A SUA URL DO WEB APP DO GOOGLE APPS SCRIPT (terminada em /exec)
-        const URL_WEB_APP = "SUA_URL_DO_WEB_APP_AQUI";
-
         function iniciarContagemRegressiva() {
+            // Valida se os campos obrigatórios estão preenchidos antes de iniciar o timer
             const nome = document.getElementById('nome').value;
             const email = document.getElementById('email').value;
             const data = document.getElementById('data').value;
@@ -231,12 +235,14 @@
                 return;
             }
 
+            // Esconde o botão de envio e mostra o aviso amarelo com o botão de cancelar
             document.getElementById('btn-submit').style.display = 'none';
             document.getElementById('cancel-countdown-box').style.display = 'block';
             
             segundos = 6;
             document.getElementById('segundos-restantes').textContent = segundos;
 
+            // Inicia o cronômetro
             temporizador = setInterval(() => {
                 segundos--;
                 document.getElementById('segundos-restantes').textContent = segundos;
@@ -245,49 +251,30 @@
                     clearInterval(temporizador);
                     document.getElementById('cancel-countdown-box').style.display = 'none';
                     
-                    // Dispara o envio seguro via fetch
-                    enviarDadosParaGoogle();
+                    // Dispara o envio real para o Google Sheets
+                    document.getElementById('report-form').submit();
+                    
+                    // Mostra o aviso de sucesso e limpa o formulário
+                    setTimeout(() => {
+                        document.getElementById('success-alert').style.display = 'block';
+                        document.getElementById('report-form').reset();
+                        document.getElementById('btn-submit').style.display = 'block';
+
+                        setTimeout(() => {
+                            document.getElementById('success-alert').style.display = 'none';
+                        }, 5000);
+                    }, 1000);
                 }
             }, 1000);
         }
 
         function cancelarEnvio() {
+            // Para o cronômetro de contagem
             clearInterval(temporizador);
+            
+            // Oculta o aviso amarelo e traz o botão principal de volta
             document.getElementById('cancel-countdown-box').style.display = 'none';
             document.getElementById('btn-submit').style.display = 'block';
-        }
-
-        function enviarDadosParaGoogle() {
-            const formData = new URLSearchParams();
-            formData.append('nome', document.getElementById('nome').value);
-            formData.append('email', document.getElementById('email').value);
-            formData.append('data', document.getElementById('data').value);
-            formData.append('entregas', document.getElementById('entregas').value);
-            formData.append('demandas', document.getElementById('demandas').value);
-            formData.append('observacao', document.getElementById('observacao').value);
-
-            // Envio assíncrono para o Apps Script
-            fetch(URL_WEB_APP, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: formData
-            })
-            .then(() => {
-                // Exibe alerta de sucesso e limpa o formulário
-                const alertBox = document.getElementById('success-alert');
-                alertBox.style.display = 'block';
-                document.getElementById('report-form').reset();
-                document.getElementById('btn-submit').style.display = 'block';
-
-                setTimeout(() => {
-                    alertBox.style.display = 'none';
-                }, 5000);
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-                alert('Ocorreu um erro ao enviar o relatório. Tente novamente.');
-                document.getElementById('btn-submit').style.display = 'block';
-            });
         }
     </script>
 </body>
