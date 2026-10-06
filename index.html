@@ -1,55 +1,217 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Relatório</title>
-    <!-- Adicione seus estilos CSS aqui se houver -->
+    <title>Relatório de Atividades Diárias - SEPLAG</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f4f7fc 0%, #e2e8f0 100%);
+            padding: 30px 20px;
+        }
+        .form-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 700px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(11, 37, 69, 0.12);
+            border: 1px solid rgba(216, 226, 236, 0.8);
+            overflow: hidden;
+            position: relative;
+        }
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #134074, #8da9c4, #0b2545);
+        }
+        .header-system {
+            background: linear-gradient(135deg, #0b2545 0%, #134074 100%);
+            padding: 35px 20px;
+            text-align: center;
+        }
+        .header-system img {
+            max-width: 160px;
+            height: auto;
+            margin-bottom: 15px;
+            background: #ffffff;
+            padding: 8px 14px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .form-title {
+            font-size: 17px;
+            color: #ffffff;
+            margin: 0;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .form-subtitle {
+            font-size: 12px;
+            color: #8da9c4;
+            margin-top: 6px;
+            text-transform: uppercase;
+        }
+        .form-body {
+            padding: 40px;
+        }
+        #success-alert {
+            display: none;
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+        #cancel-countdown-box {
+            display: none;
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            padding: 18px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(133, 100, 4, 0.1);
+        }
+        .btn-cancelar {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 12px;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
+        }
+        .btn-cancelar:hover { background-color: #bd2130; }
+
+        .input-group {
+            margin-bottom: 22px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #134074;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #f8fafc;
+            color: #1d2d44;
+            outline: none;
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: #134074;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(19, 64, 116, 0.1);
+        }
+        .input-group textarea { resize: vertical; height: 100px; }
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #0b2545 0%, #134074 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 6px 15px rgba(11, 37, 69, 0.2);
+        }
+        .btn-submit:hover { background: linear-gradient(135deg, #134074 0%, #1d2d44 100%); }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>Relatório de Atividades</h2>
-        
-        <!-- Alerta de Sucesso -->
-        <div id="success-alert" style="display: none; background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 15px; border-radius: 4px;">
-            Relatório enviado com sucesso!
+    <div class="form-card">
+        <div class="header-system">
+            <img src="logo-mpma.png" alt="Logo MPMA">
+            <div class="form-title">Relatório de Atividades Diárias</div>
+            <div class="form-subtitle">Secretaria de Planejamento e Gestão - SEPLAG</div>
         </div>
 
-        <!-- Caixa de Contagem Regressiva para Cancelamento -->
-        <div id="cancel-countdown-box" style="display: none; background-color: #fff3cd; color: #856404; padding: 10px; margin-bottom: 15px; border-radius: 4px;">
-            Enviando em <span id="segundos-restantes">6</span> segundos... 
-            <button type="button" onclick="cancelarEnvio()" style="margin-left: 10px; background-color: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px;">Cancelar</button>
+        <div class="form-body">
+            <div id="cancel-countdown-box">
+                Enviando relatório em <span id="segundos-restantes" style="font-size: 18px; color: #b78103;">6</span> segundos...<br>
+                <button type="button" class="btn-cancelar" onclick="cancelarEnvio()">❌ Cancelar / Ajustar Relatório</button>
+            </div>
+
+            <div id="success-alert">Relatório enviado com sucesso!</div>
+
+            <!-- Formulário estruturado para envio via Fetch API -->
+            <form id="report-form" onsubmit="iniciarContagemRegressiva(event)">
+                
+                <div class="input-group">
+                    <label for="nome">Nome do Servidor / Membro</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite o seu nome completo" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">E-mail Institucional</label>
+                    <input type="email" id="email" name="email" placeholder="nome@mpma.mp.br" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="data">Data de Referência</label>
+                    <input type="date" id="data" name="data" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="entregas">Principais Entregas / Atividades Concluídas no Dia</label>
+                    <textarea id="entregas" name="entregas" placeholder="Descreva detalhadamente as entregas finalizadas..." required></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="demandas">Demandas em Andamento</label>
+                    <textarea id="demandas" name="demandas" placeholder="Informe o estado das demandas correntes e prazos..."></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="observacao">Observações / Intempéries / Pendências</label>
+                    <textarea id="observacao" name="observacao" placeholder="Registros adicionais relevantes para o setor..."></textarea>
+                </div>
+
+                <button type="submit" id="btn-submit" class="btn-submit">Enviar Relatório</button>
+            </form>
+
+            <div class="footer">
+                Procuradoria Geral da Justiça do Estado do Maranhão - MPMA
+            </div>
         </div>
-
-        <form id="report-form" onsubmit="iniciarContagemRegressiva(event)">
-            <div>
-                <label for="nome">Nome:</label><br>
-                <input type="text" id="nome" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
-            </div>
-            <div>
-                <label for="email">E-mail:</label><br>
-                <input type="email" id="email" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
-            </div>
-            <div>
-                <label for="data">Data de Referência:</label><br>
-                <input type="date" id="data" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
-            </div>
-            <div>
-                <label for="entregas">Principais Entregas:</label><br>
-                <textarea id="entregas" rows="3" required style="width: 100%; padding: 8px; margin-bottom: 10px;"></textarea>
-            </div>
-            <div>
-                <label for="demandas">Demandas em Andamento:</label><br>
-                <textarea id="demandas" rows="3" style="width: 100%; padding: 8px; margin-bottom: 10px;"></textarea>
-            </div>
-            <div>
-                <label for="observacao">Observações:</label><br>
-                <textarea id="observacao" rows="2" style="width: 100%; padding: 8px; margin-bottom: 10px;"></textarea>
-            </div>
-
-            <button type="submit" id="btn-submit" style="background-color: #007bff; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; width: 100%;">Enviar Relatório</button>
-        </form>
     </div>
 
     <script>
@@ -94,7 +256,7 @@
                         observacao: document.getElementById('observacao').value
                     };
 
-                    const urlWebapp = "SEU_LINK_DO_WEB_APP_AQUI"; // Cole o link atualizado do seu Web App do Google
+                    const urlWebapp = "https://script.google.com/macros/s/AKfycbx6nbtWZhdRgJfQGsAzPWj0jeQRhXRJP3Xm-nE5WGpErK6WE_fMZiYaVL2YIiWTjn24/exec";
 
                     fetch(urlWebapp, {
                         method: 'POST',
